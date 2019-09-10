@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { MatSidenav } from '@angular/material/sidenav';
+import { MediaObserver, MediaChange } from '@angular/flex-layout';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,21 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'nitro-demo-client';
+  @ViewChild('sidenav', { static: false }) sidenav!: MatSidenav;
+
+  constructor(private media: MediaObserver) {}
+
+  ngOnInit() {
+    // Automatically close side menu on screens > sm breakpoint
+    this.media
+      .asObservable()
+      .pipe(
+        filter((changes: MediaChange[]) =>
+          changes.some(
+            change => change.mqAlias !== 'xs' && change.mqAlias !== 'sm'
+          )
+        )
+      )
+      .subscribe(() => this.sidenav.close());
+  }
 }
