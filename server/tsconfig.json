@@ -9,7 +9,11 @@
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
-    "incremental": true
+    "incremental": true,
+    "paths": {
+      "@nestjs/azure-database": ["src/table-storage"],
+      "@nestjs/azure-database/*": ["src/table-storage/*"]
+    }
   },
   "exclude": ["node_modules", "dist"]
 }
