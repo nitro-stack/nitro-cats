@@ -15,7 +15,7 @@ export class CatController {
 
     @Post('api/cats/:id')
     async rateCat(
-        @Body
+        @Body()
         catData: CatDto,
     ) {
         try {
