@@ -1,1 +1,59 @@
-<p>submit-cat works!</p>
+<div class="container">
+  <section *ngIf="!fileSelected && !uploader.isUploading; else upload">
+    <p class="error" *ngIf="addError">Oops, file unsupported or too big! 😿</p>
+    <div
+      ng2FileDrop
+      [ngClass]="{ 'file-over': hasDropZoneOver }"
+      (fileOver)="onFileOver($event)"
+      [uploader]="uploader"
+      class="drop-zone"
+    >
+      Drop a cute cat photo here
+    </div>
+    <div>
+      <p>
+        Or choose a file:
+        <button
+          color="accent"
+          type="button"
+          mat-raised-button
+          (click)="fileInput.click()"
+        >
+          Choose File
+        </button>
+      </p>
+      <p>
+        <small><em>(Only jpeg files, less than 2MB)</em></small>
+      </p>
+      <input
+        hidden
+        #fileInput
+        type="file"
+        ng2FileSelect
+        [uploader]="uploader"
+        accept=".jpg,.jpeg"
+      />
+    </div>
+  </section>
+  <ng-template #upload>
+    <div *ngIf="uploader.isUploading; else finished">
+      <p>Uploading cat...</p>
+      <mat-progress-bar
+        class="progress"
+        color="accent"
+        mode="indeterminate"
+      ></mat-progress-bar>
+    </div>
+    <ng-template #finished>
+      <p *ngIf="uploadError; else success" class="error">
+        Oops, something went wrong! 😿
+      </p>
+      <ng-template #success>
+        <p class="success">Upload success! 😸</p>
+      </ng-template>
+      <button color="accent" type="button" mat-raised-button (click)="reset()">
+        Submit another cat
+      </button>
+    </ng-template>
+  </ng-template>
+</div>

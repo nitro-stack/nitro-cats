@@ -4,7 +4,7 @@ import { MediaObserver, MediaChange } from '@angular/flex-layout';
 import { filter } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-root',
+  selector: 'nc-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })

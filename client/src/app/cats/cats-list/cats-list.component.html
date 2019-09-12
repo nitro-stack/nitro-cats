@@ -1,1 +1,37 @@
-<p>cats-list works!</p>
+<div
+  class="container"
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="50"
+  infiniteScrollContainer=".mat-sidenav-content"
+  [fromRoot]="true"
+  (scrolled)="loadMore()"
+>
+  <ng-masonry-grid
+    [masonryOptions]="{
+      transitionDuration: '0.5s',
+      gutter: 20
+    }"
+    [useAnimation]="true"
+    [useImagesLoaded]="true"
+  >
+    <div class="sizer"></div>
+
+    <ng-masonry-grid-item
+      *ngFor="let cat of cats; let i = index"
+      id="{{ 'masonry-item-' + i }}"
+      class="cat"
+    >
+      <nc-cat-item [cat]="cat"></nc-cat-item>
+    </ng-masonry-grid-item>
+  </ng-masonry-grid>
+  <div *ngIf="loading" fxLayout="column" fxLayoutAlign="center center">
+    <mat-spinner [diameter]="64"></mat-spinner>
+    <p>
+      Loading cute cats... 😺
+    </p>
+  </div>
+  <div *ngIf="loadError" fxLayoutAlign="center center">
+    Oops, cannot load cats! 😿
+  </div>
+</div>
