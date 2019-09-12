@@ -5,4 +5,8 @@ import { EntityPartitionKey, EntityRowKey, EntityString, EntityIn32 } from '@nes
 export class Cat {
   @EntityString() url: string;
   @EntityIn32() rating: number;
+
+  constructor(partial: Partial<Cat>) {
+    Object.assign(this, partial);
+  }
 }
