@@ -27,43 +27,34 @@
     </mat-sidenav>
     <mat-sidenav-content>
       <mat-toolbar class="mat-elevation-z6 navbar" color="primary">
-        <div fxHide.gt-sm fxLayoutAlign="start center">
-          <button
+        <div class="container" >
+        <div fxLayoutAlign="start center">
+            <button
+            fxHide.gt-sm
             class="menu-button"
             mat-icon-button
             (click)="sidenav.toggle()"
           >
             <mat-icon>menu</mat-icon>
           </button>
-          <span class="brand">Nitro Cats</span>
-        </div>
-        <div fxHide.lt-md fxLayoutAlign="start center">
           <img class="logo" alt="nitro cat logo" src="/assets/cat.png" />
-          <span class="brand">
+          <span fxHide.lt-sm class="brand">
             Nitro Cats
           </span>
-          <button mat-button routerLink="/latest" routerLinkActive="active">
+          <div fxFlex fxHide.gt-xs></div>
+          <button fxHide.lt-md mat-button routerLink="/latest" routerLinkActive="active">
             <span>Latest</span>
           </button>
-          <button mat-button routerLink="/top" routerLinkActive="active">
+          <button fxHide.lt-md  mat-button routerLink="/top" routerLinkActive="active">
             <span>Top rated</span>
           </button>
           <button mat-button routerLink="/submit" routerLinkActive="active">
             <span>Submit</span>
           </button>
         </div>
-        <span fxFlex></span>
+      </div>
       </mat-toolbar>
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
-  <button
-    fxHide.gt-sm
-    class="submit-cat-btn"
-    mat-fab
-    color="accent"
-    routerLink="/submit"
-  >
-    +
-  </button>
 </div>

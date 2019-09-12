@@ -7,7 +7,7 @@
       "count": 2,
       "total": 10
     },
-    "url": "/api/cat.jpg"
+    "url": "/api/cat2.jpg"
   },
   {
     "id": "1",
@@ -17,6 +17,6 @@
       "count": 2,
       "total": 9
     },
-    "url": "/api/cat.jpg"
+    "url": "/api/cat1.jpg"
   }
 ]

@@ -1,0 +1,32 @@
+img {
+  border-radius: 8px;
+  // width: 100%;
+  height: auto;
+}
+
+.cat {
+  position: relative;
+}
+
+.overlay, .infos {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  transition: .4s ease opacity;
+
+  .cat:hover & {
+    opacity: 0.6
+  }
+}
+
+.overlay {
+  background: linear-gradient(0, #000 25%, rgba(0,0,0,0));
+}
+
+.infos {
+  top: auto;
+  padding: 10px;
+}

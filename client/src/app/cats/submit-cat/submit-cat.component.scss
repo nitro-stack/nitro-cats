@@ -1,0 +1,35 @@
+:host {
+  display: block;
+  padding: 20px;
+  text-align: center;
+}
+
+.drop-zone {
+  border: dotted 3px #ccc;
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+
+  &.file-over {
+    background-color: rgba(255,255,255,.3);
+  }
+}
+
+.progress {
+  max-width: 600px;
+}
+
+.error {
+  color: #f50;
+  font-weight: 500;
+}
+
+.success {
+  color: #7f0;
+  font-weight: 500;
+}

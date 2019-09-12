@@ -27,6 +27,10 @@
     "@angular/platform-browser-dynamic": "^8.2.5",
     "@angular/router": "^8.2.5",
     "hammerjs": "^2.0.8",
+    "imagesloaded": "^4.1.4",
+    "masonry-layout": "^4.2.2",
+    "ng-masonry-grid": "^1.3.0",
+    "ng2-file-upload": "^1.3.0",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"

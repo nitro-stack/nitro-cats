@@ -1,1 +1,20 @@
-<p>cats-list works!</p>
+<div class="container">
+  <ng-masonry-grid
+    [masonryOptions]="{
+      transitionDuration: '0.5s',
+      gutter: 20
+    }"
+    [useAnimation]="true"
+    [useImagesLoaded]="true"
+  >
+  <div class="sizer"></div>
+
+    <ng-masonry-grid-item
+      *ngFor="let cat of cats$ | async; let i = index"
+      id="{{ 'masonry-item-' + i }}"
+      class="cat"
+    >
+      <nc-cat-item [cat]=cat></nc-cat-item>
+    </ng-masonry-grid-item>
+  </ng-masonry-grid>
+</div>
