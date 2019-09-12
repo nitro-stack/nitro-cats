@@ -1,5 +1,4 @@
 export class CatDto {
-    name: string;
-    message: string;
+    url: string;
+    rating: number;
 }
-  
