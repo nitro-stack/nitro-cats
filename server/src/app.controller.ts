@@ -37,15 +37,14 @@ export class AppController {
       containerName: 'nitro-cats-service',
     });
 
-    const cat = new Cat({
-      url: storageUrl,
-      rating: 0
-    });
-
-    try {
-      await this.catService.create(cat);
-    } catch (error) {
-      throw new UnprocessableEntityException(error);
+    if (storageUrl !== false) {  
+      try {
+        await this.catService.addCat(storageUrl);
+      } catch (error) {
+        throw new UnprocessableEntityException(error);
+      }
+    } else {
+      //TODO return HTTP error
     }
 
     Logger.log(

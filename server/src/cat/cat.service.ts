@@ -20,6 +20,14 @@ export class CatService {
     return await this.catRepository.create(cat);
   }
 
+  async addCat(url: string): Promise<Cat> {
+    const cat = new Cat({
+      url: url,
+      rating: 0
+    });
+    return await this.catRepository.create(cat);
+  }
+  
   async update(key: string, cat: Partial<Cat>): Promise<Cat> {
     return await this.catRepository.update(key, cat);
   }
