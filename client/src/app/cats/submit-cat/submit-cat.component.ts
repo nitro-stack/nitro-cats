@@ -9,7 +9,7 @@ const uploadURL = 'https://google.com/some/api/';
   styleUrls: ['./submit-cat.component.scss']
 })
 export class SubmitCatComponent implements OnInit {
-  uploader:FileUploader;
+  uploader: FileUploader;
   hasDropZoneOver = false;
   fileSelected = false;
   addError = false;
@@ -18,7 +18,8 @@ export class SubmitCatComponent implements OnInit {
   constructor() {
     const fileExtFilter = {
       name: 'fileExt',
-      fn: (item: FileLikeObject) => ['.jpg', '.jpeg'].some(ext => item.name.endsWith(ext))
+      fn: (item: FileLikeObject) =>
+        ['.jpg', '.jpeg'].some(ext => item.name.endsWith(ext))
     };
     this.uploader = new FileUploader({
       url: uploadURL,
@@ -29,9 +30,15 @@ export class SubmitCatComponent implements OnInit {
       autoUpload: true,
       removeAfterUpload: true
     });
-    this.uploader.onAfterAddingFile = () => { this.fileSelected = true; };
-    this.uploader.onWhenAddingFileFailed = () => { this.addError = true; }
-    this.uploader.onErrorItem = () => { this.uploadError = true; }
+    this.uploader.onAfterAddingFile = () => {
+      this.fileSelected = true;
+    };
+    this.uploader.onWhenAddingFileFailed = () => {
+      this.addError = true;
+    };
+    this.uploader.onErrorItem = () => {
+      this.uploadError = true;
+    };
     this.uploader.onSuccessItem = () => console.log('success');
   }
 

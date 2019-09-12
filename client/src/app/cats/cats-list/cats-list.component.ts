@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { of } from 'rxjs';
 
 import { Cat } from '../cat';
-import { CatsService } from '../cats.service';
+import { CatsService, pageLoadCount } from '../cats.service';
+import { finalize, catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'nc-cats-list',
@@ -11,12 +12,49 @@ import { CatsService } from '../cats.service';
   styleUrls: ['./cats-list.component.scss']
 })
 export class CatsListComponent implements OnInit {
-  cats$: Observable<Cat[]> | null;
+  cats: Cat[] = [];
+  orderBy: 'latest' | 'rating';
+  page: number;
+  loading = false;
+  loadError = false;
 
-  constructor(private activatedRoute: ActivatedRoute, private catsService: CatsService) {}
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private catsService: CatsService
+  ) {}
 
   ngOnInit() {
-    const orderBy = this.activatedRoute.snapshot.data && this.activatedRoute.snapshot.data.orderBy || 'latest';
-    this.cats$ = this.catsService.getCats(orderBy);
+    this.page = 1;
+    this.orderBy =
+      (this.activatedRoute.snapshot.data &&
+        this.activatedRoute.snapshot.data.orderBy) ||
+      'latest';
+    this.loadCats();
+  }
+
+  loadMore() {
+    if (this.cats.length === pageLoadCount * this.page) {
+      this.loadCats(this.page++);
+    } else {
+      console.info('No more cats to load!');
+    }
+  }
+
+  private loadCats(page = 0) {
+    this.loading = true;
+    this.catsService
+      .getCats(this.orderBy, page)
+      .pipe(
+        catchError(() => {
+          this.loadError = true;
+          return of([]);
+        }),
+        finalize(() => {
+          this.loading = false;
+        })
+      )
+      .subscribe(cats => {
+        this.cats.push(...cats);
+      });
   }
 }

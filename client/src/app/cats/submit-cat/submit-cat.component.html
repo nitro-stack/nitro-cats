@@ -38,7 +38,11 @@
   <ng-template #upload>
     <div *ngIf="uploader.isUploading; else finished">
       <p>Uploading cat...</p>
-      <mat-progress-bar class="progress" color="accent" mode="indeterminate"></mat-progress-bar>
+      <mat-progress-bar
+        class="progress"
+        color="accent"
+        mode="indeterminate"
+      ></mat-progress-bar>
     </div>
     <ng-template #finished>
       <p *ngIf="uploadError; else success" class="error">

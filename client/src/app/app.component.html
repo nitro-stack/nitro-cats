@@ -27,32 +27,42 @@
     </mat-sidenav>
     <mat-sidenav-content>
       <mat-toolbar class="mat-elevation-z6 navbar" color="primary">
-        <div class="container" >
-        <div fxLayoutAlign="start center">
+        <div class="container">
+          <div fxLayoutAlign="start center">
             <button
-            fxHide.gt-sm
-            class="menu-button"
-            mat-icon-button
-            (click)="sidenav.toggle()"
-          >
-            <mat-icon>menu</mat-icon>
-          </button>
-          <img class="logo" alt="nitro cat logo" src="/assets/cat.png" />
-          <span fxHide.lt-sm class="brand">
-            Nitro Cats
-          </span>
-          <div fxFlex fxHide.gt-xs></div>
-          <button fxHide.lt-md mat-button routerLink="/latest" routerLinkActive="active">
-            <span>Latest</span>
-          </button>
-          <button fxHide.lt-md  mat-button routerLink="/top" routerLinkActive="active">
-            <span>Top rated</span>
-          </button>
-          <button mat-button routerLink="/submit" routerLinkActive="active">
-            <span>Submit</span>
-          </button>
+              fxHide.gt-sm
+              class="menu-button"
+              mat-icon-button
+              (click)="sidenav.toggle()"
+            >
+              <mat-icon>menu</mat-icon>
+            </button>
+            <img class="logo" alt="nitro cat logo" src="/assets/cat.png" />
+            <span fxHide.lt-sm class="brand">
+              Nitro Cats
+            </span>
+            <div fxFlex fxHide.gt-xs></div>
+            <button
+              fxHide.lt-md
+              mat-button
+              routerLink="/latest"
+              routerLinkActive="active"
+            >
+              <span>Latest</span>
+            </button>
+            <button
+              fxHide.lt-md
+              mat-button
+              routerLink="/top"
+              routerLinkActive="active"
+            >
+              <span>Top rated</span>
+            </button>
+            <button mat-button routerLink="/submit" routerLinkActive="active">
+              <span>Submit</span>
+            </button>
+          </div>
         </div>
-      </div>
       </mat-toolbar>
       <router-outlet></router-outlet>
     </mat-sidenav-content>

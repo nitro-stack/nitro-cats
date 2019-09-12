@@ -1,14 +1,14 @@
 export interface CatDto {
   readonly id: string;
   readonly createdAt: string;
-  readonly rating: number | null;
+  readonly rating: number;
   readonly url: string;
 }
 
 export class Cat {
   readonly id: string;
   readonly createdAt: Date;
-  readonly rating: number | null;
+  rating: number;
   readonly url: string;
 
   constructor(data: Cat) {

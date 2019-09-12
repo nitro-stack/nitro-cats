@@ -1,6 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import url("https://fonts.googleapis.com/css?family=Pacifico&display=swap");
+// Set Font Awesome font path
+$fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
+
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss//solid.scss";
+
+@font-face {
+  font-family: "Pacifico";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Pacifico Regular"), local("Pacifico-Regular"),
+    url("assets/pacifico-v15-latin-regular.woff2") format("woff2"),
+    url("assets/pacifico-v15-latin-regular.woff") format("woff");
+}
 
 html,
 body {

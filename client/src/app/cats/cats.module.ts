@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgMasonryGridModule } from 'ng-masonry-grid';
 import { FileUploadModule } from 'ng2-file-upload';
 
@@ -11,6 +13,14 @@ import { CatItemComponent } from './cat-item/cat-item.component';
 
 @NgModule({
   declarations: [CatsListComponent, SubmitCatComponent, CatItemComponent],
-  imports: [CommonModule, CatsRoutingModule, NgMasonryGridModule, FileUploadModule, MaterialModule]
+  imports: [
+    CommonModule,
+    FlexLayoutModule,
+    NgMasonryGridModule,
+    InfiniteScrollModule,
+    CatsRoutingModule,
+    FileUploadModule,
+    MaterialModule
+  ]
 })
 export class CatsModule {}

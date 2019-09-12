@@ -1,10 +1,6 @@
 {
   "id": "{{params.id}}",
   "createdAt": "2019-09-10T12:29:07.835Z",
-  "rating": {
-    "average": 4.5,
-    "count": 2,
-    "total": 9
-  },
-  "url": "/api/cat.jpg"
+  "rating": 3,
+  "url": "/api/cat1.jpg"
 }
