@@ -1,8 +1,23 @@
 :host {
   display: block;
-  padding: 20px;
+  padding: 10px;
 }
 
-.sizer {
-  width: 25%;
+.masonry {
+  column-count: 1;
+  column-gap: 0;
+
+  @media screen and (min-width: 600px) and (max-width: 799px) {
+    column-count: 2;
+  }
+
+  @media screen and (min-width: 800px) {
+    column-count: 3;
+  }
+
+  .panel {
+    break-inside: avoid;
+  }
 }
+
+

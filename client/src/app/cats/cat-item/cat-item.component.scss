@@ -1,11 +1,25 @@
-img {
-  border-radius: 8px;
-  // width: 100%;
-  height: auto;
+.item {
+  padding: 10px;
+  animation: fadeIn 0.3s ease-out;
+  animation-fill-mode: forwards;
+  opacity: 0;
+  display: none;
+
+  &.loaded {
+    display: block;
+  }
 }
 
 .cat {
   position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .overlay,
@@ -15,7 +29,7 @@ img {
   bottom: 0;
   left: 0;
   right: 0;
-  transition: 0.4s ease opacity;
+  transition: 0.5s ease opacity;
 }
 
 .overlay {
@@ -33,6 +47,15 @@ img {
   font-size: 0.75rem;
 }
 
-.fas {
+.paw {
   font-size: 1.25rem;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

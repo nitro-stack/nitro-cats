@@ -7,7 +7,7 @@
   [fromRoot]="true"
   (scrolled)="loadMore()"
 >
-  <ng-masonry-grid
+  <!-- <ng-masonry-grid
     [masonryOptions]="{
       transitionDuration: '0.5s',
       gutter: 20
@@ -24,7 +24,12 @@
     >
       <nc-cat-item [cat]="cat"></nc-cat-item>
     </ng-masonry-grid-item>
-  </ng-masonry-grid>
+  </ng-masonry-grid> -->
+  <div class="masonry">
+    <div class="panel" *ngFor="let cat of cats; let i = index">
+      <nc-cat-item [cat]="cat"></nc-cat-item>
+    </div>
+  </div>
   <div *ngIf="loading" fxLayout="column" fxLayoutAlign="center center">
     <mat-spinner [diameter]="64"></mat-spinner>
     <p>

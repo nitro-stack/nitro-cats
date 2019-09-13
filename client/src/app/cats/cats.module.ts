@@ -20,7 +20,7 @@ import { CatItemComponent } from './cat-item/cat-item.component';
     InfiniteScrollModule,
     CatsRoutingModule,
     FileUploadModule,
-    MaterialModule
+    MaterialModule,
   ]
 })
 export class CatsModule {}
