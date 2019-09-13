@@ -1,10 +1,7 @@
-<section
-  [class.loaded]="imgLoaded"
-  class="item"
->
+<section class="item">
   <div class="cat">
     <div class="overlay"></div>
-    <img src="{{ cat.url }}" alt="cute cat" (load)="onLoaded()" />
+    <img src="{{ cat.url }}" alt="cute cat"/>
     <section class="infos" fxLayout="row" fxLayoutAlign="space-between center">
       <div class="date">{{ cat.createdAt | date }}</div>
       <div class="rating">

@@ -10,7 +10,6 @@ import { CatsService } from '../cats.service';
 })
 export class CatItemComponent {
   rating: string;
-  imgLoaded = false;
 
   @Input() set cat(cat: Cat) {
     this._cat = cat;
@@ -28,10 +27,6 @@ export class CatItemComponent {
   addLove() {
     this.cat.rating++, this.updateRating();
     this.catsService.addCatLove(this.cat.id);
-  }
-
-  onLoaded() {
-    this.imgLoaded = true;
   }
 
   private updateRating() {
