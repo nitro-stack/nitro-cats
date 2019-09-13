@@ -7,29 +7,23 @@
   [fromRoot]="true"
   (scrolled)="loadMore()"
 >
-  <!-- <ng-masonry-grid
+  <ng-masonry-grid
     [masonryOptions]="{
-      transitionDuration: '0.5s',
-      gutter: 20
+      transitionDuration: '0.4s',
+      gutter: 0,
+      columnWidth: '.sizer',
+      percentPosition: true,
+      hiddenStyle: { opacity: 0 },
+      visibleStyle: { opacity: 1 }
     }"
-    [useAnimation]="true"
-    [useImagesLoaded]="true"
+    [useAnimation]="false"
+    [useImagesLoaded]="false"
   >
     <div class="sizer"></div>
-
-    <ng-masonry-grid-item
-      *ngFor="let cat of cats; let i = index"
-      id="{{ 'masonry-item-' + i }}"
-      class="cat"
-    >
+    <ng-masonry-grid-item *ngFor="let cat of cats;">
       <nc-cat-item [cat]="cat"></nc-cat-item>
     </ng-masonry-grid-item>
-  </ng-masonry-grid> -->
-  <div class="masonry">
-    <div class="panel" *ngFor="let cat of cats; let i = index">
-      <nc-cat-item [cat]="cat"></nc-cat-item>
-    </div>
-  </div>
+  </ng-masonry-grid>
   <div *ngIf="loading" fxLayout="column" fxLayoutAlign="center center">
     <mat-spinner [diameter]="64"></mat-spinner>
     <p>

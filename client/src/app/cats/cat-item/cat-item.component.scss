@@ -1,8 +1,5 @@
 .item {
   padding: 10px;
-  animation: fadeIn 0.3s ease-out;
-  animation-fill-mode: forwards;
-  opacity: 0;
   display: none;
 
   &.loaded {
@@ -49,13 +46,4 @@ img {
 
 .paw {
   font-size: 1.25rem;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
 }

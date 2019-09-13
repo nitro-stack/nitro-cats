@@ -3,21 +3,14 @@
   padding: 10px;
 }
 
-.masonry {
-  column-count: 1;
-  column-gap: 0;
+.sizer, ng-masonry-grid-item {
+  width: 100%;
 
-  @media screen and (min-width: 600px) and (max-width: 799px) {
-    column-count: 2;
+  @media screen and (min-width: 600px) and (max-width: 959px) {
+    width: 50%;
   }
 
-  @media screen and (min-width: 800px) {
-    column-count: 3;
-  }
-
-  .panel {
-    break-inside: avoid;
+  @media screen and (min-width: 960px) {
+    width: 33.3%;
   }
 }
-
-
