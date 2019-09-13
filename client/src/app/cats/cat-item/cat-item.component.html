@@ -1,13 +1,15 @@
-<div class="cat">
-  <div class="overlay"></div>
-  <img src="{{ cat.url }}" alt="cute cat" />
-  <section class="infos" fxLayout="row" fxLayoutAlign="space-between center">
-    <div class="date">{{ cat.createdAt | date }}</div>
-    <div class="rating">
-      <span class="number">{{ rating }}</span>
-      <button mat-icon-button (click)="addLove()">
-        <i class="fas fa-paw"></i>
-      </button>
-    </div>
-  </section>
-</div>
+<section class="item">
+  <div class="cat">
+    <div class="overlay"></div>
+    <img src="{{ cat.url }}" alt="cute cat"/>
+    <section class="infos" fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="date">{{ cat.createdAt | date }}</div>
+      <div class="rating">
+        <span class="number">{{ rating }}</span>
+        <button mat-icon-button (click)="addLove()">
+          <i class="paw fas fa-paw"></i>
+        </button>
+      </div>
+    </section>
+  </div>
+</section>

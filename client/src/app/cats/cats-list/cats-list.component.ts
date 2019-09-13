@@ -17,6 +17,7 @@ export class CatsListComponent implements OnInit {
   page: number;
   loading = false;
   loadError = false;
+  layout = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
