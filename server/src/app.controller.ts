@@ -4,7 +4,7 @@ import {
   Post,
   UploadedFile,
   UseInterceptors,
-  UnprocessableEntityException
+  UnprocessableEntityException,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import {
@@ -19,8 +19,8 @@ import { Cat } from './cat/cat.entity';
 export class AppController {
   constructor(
     private readonly azureStorage: AzureStorageService,
-    private readonly catService: CatService
-    ) {}
+    private readonly catService: CatService,
+  ) {}
 
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
@@ -37,7 +37,7 @@ export class AppController {
       containerName: 'nitro-cats-service',
     });
 
-    if (storageUrl !== false) {  
+    if (storageUrl !== false) {
       try {
         await this.catService.addCat(storageUrl);
       } catch (error) {

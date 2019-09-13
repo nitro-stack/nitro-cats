@@ -5,13 +5,13 @@ import { Cat } from './cat.entity';
 import { CatService } from './cat.service';
 
 @Module({
-    imports: [
-      AzureTableStorageModule.forFeature(Cat, {
-        table: 'Cat',
-        createTableIfNotExists: true,
-      }),
-    ],
-    providers: [CatService],
-    controllers: [CatController],
-  })
+  imports: [
+    AzureTableStorageModule.forFeature(Cat, {
+      table: 'Cat',
+      createTableIfNotExists: true,
+    }),
+  ],
+  providers: [CatService],
+  controllers: [CatController],
+})
 export class CatModule {}

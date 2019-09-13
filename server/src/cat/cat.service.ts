@@ -1,12 +1,18 @@
 import { Injectable } from '@nestjs/common';
-import { Repository, AzureTableStorageResponse, AzureTableStorageResultList, InjectRepository } from '@nestjs/azure-database';
+import {
+  Repository,
+  AzureTableStorageResponse,
+  AzureTableStorageResultList,
+  InjectRepository,
+} from '@nestjs/azure-database';
 import { Cat } from './cat.entity';
 
 @Injectable()
 export class CatService {
   constructor(
     @InjectRepository(Cat)
-    private readonly catRepository: Repository<Cat>) {}
+    private readonly catRepository: Repository<Cat>,
+  ) {}
 
   async find(rowKey: string, cat: Cat): Promise<Cat> {
     return await this.catRepository.find(rowKey, cat);
@@ -23,11 +29,11 @@ export class CatService {
   async addCat(url: string): Promise<Cat> {
     const cat = new Cat({
       url: url,
-      rating: 0
+      rating: 0,
     });
     return await this.catRepository.create(cat);
   }
-  
+
   async update(key: string, cat: Partial<Cat>): Promise<Cat> {
     return await this.catRepository.update(key, cat);
   }

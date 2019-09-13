@@ -1,4 +1,4 @@
 export class CatDto {
-    url: string;
-    rating: number;
+  url: string;
+  rating: number;
 }
