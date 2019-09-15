@@ -1,12 +1,18 @@
-import { Injectable } from '@nestjs/common';
-import { Repository, AzureTableStorageResponse, AzureTableStorageResultList, InjectRepository } from '@nestjs/azure-database';
+import { Injectable, UnprocessableEntityException } from '@nestjs/common';
+import {
+  Repository,
+  AzureTableStorageResponse,
+  AzureTableStorageResultList,
+  InjectRepository,
+} from '@nestjs/azure-database';
 import { Cat } from './cat.entity';
 
 @Injectable()
 export class CatService {
   constructor(
     @InjectRepository(Cat)
-    private readonly catRepository: Repository<Cat>) {}
+    private readonly catRepository: Repository<Cat>,
+  ) {}
 
   async find(rowKey: string, cat: Cat): Promise<Cat> {
     return await this.catRepository.find(rowKey, cat);
@@ -23,21 +29,25 @@ export class CatService {
   async addCat(url: string): Promise<Cat> {
     const cat = new Cat({
       url: url,
-      rating: 0
+      rating: 0,
     });
     return await this.catRepository.create(cat);
   }
 
   async incrementRating(key: string, rating: number): Promise<Cat> {
     if (rating < 0 || rating > 10) {
-      return Promise.reject("rating must be a number between 0 and 10");
+      return Promise.reject('rating must be a number between 0 and 10');
     } else {
-      const cat = await this.catRepository.find(key, new Cat({}));
-      cat.rating = cat.rating + rating;
-      return await this.catRepository.update(key, cat);
+      try {
+        const cat = await this.catRepository.find(key, new Cat({}));
+        cat.rating = cat.rating + rating;
+        return await this.catRepository.update(key, cat);
+      } catch (error) {
+        throw new UnprocessableEntityException(error);
+      }
     }
   }
-  
+
   async update(key: string, cat: Partial<Cat>): Promise<Cat> {
     return await this.catRepository.update(key, cat);
   }
