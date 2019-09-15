@@ -27,6 +27,16 @@ export class CatService {
     });
     return await this.catRepository.create(cat);
   }
+
+  async incrementRating(key: string, rating: number): Promise<Cat> {
+    if (rating < 0 || rating > 10) {
+      return Promise.reject("rating must be a number between 0 and 10");
+    } else {
+      const cat = await this.catRepository.find(key, new Cat({}));
+      cat.rating = cat.rating + rating;
+      return await this.catRepository.update(key, cat);
+    }
+  }
   
   async update(key: string, cat: Partial<Cat>): Promise<Cat> {
     return await this.catRepository.update(key, cat);
