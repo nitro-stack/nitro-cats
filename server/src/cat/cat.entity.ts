@@ -1,4 +1,9 @@
-import { EntityPartitionKey, EntityRowKey, EntityString, EntityIn32 } from '@nestjs/azure-database';
+import {
+  EntityPartitionKey,
+  EntityRowKey,
+  EntityString,
+  EntityIn32,
+} from '@nestjs/azure-database';
 
 @EntityPartitionKey('CatID')
 @EntityRowKey('CatName')

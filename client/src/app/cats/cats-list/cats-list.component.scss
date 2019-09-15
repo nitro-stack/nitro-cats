@@ -1,8 +1,17 @@
 :host {
   display: block;
-  padding: 20px;
+  padding: 10px;
 }
 
-.sizer {
-  width: 25%;
+.sizer,
+ng-masonry-grid-item {
+  width: 100%;
+
+  @media screen and (min-width: 600px) and (max-width: 959px) {
+    width: 50%;
+  }
+
+  @media screen and (min-width: 960px) {
+    width: 33.3%;
+  }
 }

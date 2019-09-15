@@ -13,7 +13,7 @@ import { CatModule } from './cat/cat.module';
       sasKey: process.env.AZURE_STORAGE_SAS_KEY,
       accountName: process.env.AZURE_STORAGE_ACCOUNT,
       containerName: 'nitro-cats-container',
-    })
+    }),
   ],
 })
 export class AppModule {}

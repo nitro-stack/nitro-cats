@@ -9,19 +9,18 @@
 >
   <ng-masonry-grid
     [masonryOptions]="{
-      transitionDuration: '0.5s',
-      gutter: 20
+      transitionDuration: '0.4s',
+      gutter: 0,
+      columnWidth: '.sizer',
+      percentPosition: true,
+      hiddenStyle: { opacity: 0 },
+      visibleStyle: { opacity: 1 }
     }"
-    [useAnimation]="true"
+    [useAnimation]="false"
     [useImagesLoaded]="true"
   >
     <div class="sizer"></div>
-
-    <ng-masonry-grid-item
-      *ngFor="let cat of cats; let i = index"
-      id="{{ 'masonry-item-' + i }}"
-      class="cat"
-    >
+    <ng-masonry-grid-item *ngFor="let cat of cats">
       <nc-cat-item [cat]="cat"></nc-cat-item>
     </ng-masonry-grid-item>
   </ng-masonry-grid>
