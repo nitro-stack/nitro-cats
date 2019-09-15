@@ -4,7 +4,8 @@ import {
   Post,
   UploadedFile,
   UseInterceptors,
-  UnprocessableEntityException
+  UnprocessableEntityException,
+  BadGatewayException,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import {
@@ -19,8 +20,8 @@ import { Cat } from './cat/cat.entity';
 export class AppController {
   constructor(
     private readonly azureStorage: AzureStorageService,
-    private readonly catService: CatService
-    ) {}
+    private readonly catService: CatService,
+  ) {}
 
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
@@ -37,21 +38,20 @@ export class AppController {
       containerName: 'nitro-cats-service',
     });
 
-    if (storageUrl !== false) {  
+    if (storageUrl !== false) {
       try {
         await this.catService.addCat(storageUrl);
+        Logger.log(
+          `File "${file.originalname}" was uploaded using Azure Service`,
+          'AppController',
+        );
+        Logger.log(`Storage URL: ${storageUrl}`, 'AppController');
       } catch (error) {
         throw new UnprocessableEntityException(error);
       }
     } else {
-      //TODO return HTTP error
+      throw new BadGatewayException();
     }
-
-    Logger.log(
-      `File "${file.originalname}" was uploaded using Azure Service`,
-      'AppController',
-    );
-    Logger.log(`Storage URL: ${storageUrl}`, 'AppController');
   }
 
   @Post('upload/interceptor')
@@ -65,9 +65,7 @@ export class AppController {
     file: UploadedFileMetadata,
   ) {
     Logger.log(
-      `File "${
-        file.originalname
-      }" was uploaded using Azure Storage Interceptor`,
+      `File "${file.originalname}" was uploaded using Azure Storage Interceptor`,
       'AppController',
     );
     Logger.log(`Storage URL: ${file.storageUrl}`, 'AppController');
