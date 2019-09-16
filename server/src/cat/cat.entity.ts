@@ -2,14 +2,14 @@ import {
   EntityPartitionKey,
   EntityRowKey,
   EntityString,
-  EntityIn32,
+  EntityInt32,
 } from '@nestjs/azure-database';
 
 @EntityPartitionKey('CatID')
 @EntityRowKey('CatName')
 export class Cat {
   @EntityString() url: string;
-  @EntityIn32() rating: number;
+  @EntityInt32() rating: number;
 
   constructor(partial: Partial<Cat>) {
     Object.assign(this, partial);

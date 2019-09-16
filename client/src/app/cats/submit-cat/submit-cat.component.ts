@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FileUploader, FileItem, FileLikeObject } from 'ng2-file-upload';
+import { FileUploader, FileLikeObject } from 'ng2-file-upload';
 
-const uploadURL = 'https://google.com/some/api/';
+import { environment } from '@env/environment';
+
+const uploadURL = `${environment.serverUrl}/cats/upload`;
 
 @Component({
   selector: 'app-submit-cat',
@@ -28,6 +30,7 @@ export class SubmitCatComponent implements OnInit {
       queueLimit: 1,
       filters: [fileExtFilter],
       autoUpload: true,
+      disableMultipart: false,
       removeAfterUpload: true
     });
     this.uploader.onAfterAddingFile = () => {

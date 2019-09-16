@@ -10,6 +10,7 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
+    "resolveJsonModule": true,
     "paths": {
       "@nestjs/azure-database": ["src/table-storage"],
       "@nestjs/azure-database/*": ["src/table-storage/*"]
