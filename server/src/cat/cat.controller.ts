@@ -53,9 +53,7 @@ export class CatController {
     file: UploadedFileMetadata,
   ) {
     Logger.log(
-      `File "${
-        file.originalname
-      }" was uploaded using Azure Storage Interceptor`,
+      `File "${file.originalname}" was uploaded using Azure Storage Interceptor`,
       'CatController',
     );
 
@@ -66,7 +64,7 @@ export class CatController {
   // TODO support continuation token
   @Get()
   async getAllCats() {
-    return await this.catService.findAll();
+    return await this.catService.findAllByRating();
   }
 
   @Post(':id/paw')
