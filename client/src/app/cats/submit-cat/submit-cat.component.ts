@@ -35,6 +35,7 @@ export class SubmitCatComponent implements OnInit {
     });
     this.uploader.onAfterAddingFile = () => {
       this.fileSelected = true;
+      // TODO: resize file using canvas
     };
     this.uploader.onWhenAddingFileFailed = () => {
       this.addError = true;

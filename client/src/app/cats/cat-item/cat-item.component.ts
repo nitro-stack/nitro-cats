@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core';
 
 import { Cat } from '../cat';
 import { CatsService } from '../cats.service';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'nc-cat-item',
@@ -24,9 +26,18 @@ export class CatItemComponent {
 
   constructor(private catsService: CatsService) {}
 
-  addLove() {
-    this.cat.rating++, this.updateRating();
-    this.catsService.addCatLove(this.cat.id);
+  async paw() {
+    this.cat.rating++;
+    this.updateRating();
+    this.catsService.pawCat(this.cat.id)
+      .pipe(catchError(error => {
+        // Restore rating
+        this.cat.rating--;
+        this.updateRating();
+        console.error("Could no paw cat :'(", error);
+        return of(null);
+      }))
+      .subscribe();
   }
 
   private updateRating() {

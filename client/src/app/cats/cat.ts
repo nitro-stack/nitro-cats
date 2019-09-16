@@ -15,8 +15,10 @@ export class Cat {
 
   static fromApi(catDto: CatDto): Cat {
     return new Cat({
-      ...catDto,
-      createdAt: new Date(catDto.createdAt)
+      id: catDto.RowKey,
+      createdAt: new Date(catDto.createdAt),
+      rating: catDto.rating,
+      url: catDto.url
     });
   }
 }

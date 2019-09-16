@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { Cat } from './cat';
-import { CatDto } from './cat.dto';
 
-export const pageLoadCount = 30;
+import { Cat } from './cat';
+import { CatListDto } from './cat-list.dto';
+import { CatList } from './cat-list';
 
 @Injectable({
   providedIn: 'root'
@@ -15,12 +15,16 @@ export class CatsService {
 
   getCats(
     orderBy: 'latest' | 'rating' = 'latest',
-    page: number = 0
-  ): Observable<Cat[] | null> {
+    continuationToken?: string
+  ): Observable<CatList | null> {
     return this.httpClient
-      .get(`/cats?orderBy=${orderBy}&page=${page}&count=${pageLoadCount}`)
+      .get(
+        `/cats?orderBy=${orderBy}${
+          continuationToken ? '&continuationToken=' + continuationToken : ''
+        }`
+      )
       .pipe(
-        map((catDtos: CatDto[]) => catDtos.map(Cat.fromApi)),
+        map((catListDto: CatListDto) => CatList.fromApi(catListDto)),
         catchError(error => {
           console.error(`Error, cannot get cats:`, error);
           return of(null);
@@ -28,8 +32,21 @@ export class CatsService {
       );
   }
 
-  addCatLove(id: string): Observable<Cat[] | null> {
-    console.log('aww!');
-    return null;
+  removeCat(id: string): Observable<void> {
+    return this.httpClient.delete(`/cats/${id}`).pipe(
+      catchError(error => {
+        console.error(`Error, cannot delete cat with id: ${id}`, error);
+        return of(null);
+      })
+    );
+  }
+
+  pawCat(id: string): Observable<Cat[] | null> {
+    return this.httpClient.post(`/cats/${id}/paw`, { rating: 1 }).pipe(
+      catchError(error => {
+        console.error(`Error, cannot paw cat with id: ${id}`, error);
+        return of(null);
+      })
+    );
   }
 }

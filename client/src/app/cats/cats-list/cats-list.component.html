@@ -33,4 +33,7 @@
   <div *ngIf="loadError" fxLayoutAlign="center center">
     Oops, cannot load cats! 😿
   </div>
+  <div *ngIf="!loading && cats.length === 0" fxLayoutAlign="center center">
+    No cats to display! 🙀
+  </div>
 </div>
