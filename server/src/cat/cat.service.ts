@@ -36,12 +36,8 @@ export class CatService {
 
   async incrementRating(key: string, rating: number): Promise<Cat> {
     const cat = await this.catRepository.find(key, new Cat());
-    cat.rating = cat.rating + rating;
-    return await this.catRepository.update(key, cat);
-  }
-
-  async update(key: string, cat: Partial<Cat>): Promise<Cat> {
-    return await this.catRepository.update(key, cat);
+    cat.rating += rating;
+    return await this.catRepository.update(key, new Cat(cat));
   }
 
   async delete(id: string): Promise<AzureTableStorageResponse> {
