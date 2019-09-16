@@ -6,7 +6,7 @@ import {
   EntityDateTime,
 } from '@nestjs/azure-database';
 
-@EntityPartitionKey('partitionId')
+@EntityPartitionKey('cats')
 @EntityRowKey('id')
 export class Cat {
   @EntityString() url: string;
