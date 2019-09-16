@@ -7,10 +7,9 @@ import {
   Get,
   Param,
   Post,
-  Put,
-  UnprocessableEntityException,
-  Patch,
+  BadRequestException,
   Logger,
+  UnprocessableEntityException,
   BadGatewayException,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -19,56 +18,37 @@ import {
   UploadedFileMetadata,
   AzureStorageService,
 } from '@nestjs/azure-storage';
-
-import { CatDto } from './cat.dto';
 import { CatService } from './cat.service';
 
 @Controller('cats')
 export class CatController {
-  constructor(private readonly catService: CatService, private azureStorage: AzureStorageService) {}
+  constructor(
+    private readonly catService: CatService,
+    private azureStorage: AzureStorageService,
+  ) {}
 
-  
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
-  async UploadedFilesUsingService(
+  async UploadedCatUsingService(
     @UploadedFile()
     file: UploadedFileMetadata,
   ) {
-    console.log(file);
-    file = {
-      ...file,
-      originalname: 'foo-bar.txt',
-    };
-
-    const storageUrl = await this.azureStorage.upload(file, {
-      containerName: 'nitrocats',
-    });
-    
-    if (storageUrl !== false) {
-      try {
-        await this.catService.addCat(storageUrl);
-        Logger.log(
-          `File "${file.originalname}" was uploaded using Azure Service`,
-          'AppController',
-        );
-        Logger.log(`Storage URL: ${storageUrl}`, 'AppController');
-      } catch (error) {
-        throw new UnprocessableEntityException(error);
-      }
-    } else {
-      throw new BadGatewayException();
-    }
-
     Logger.log(
       `File "${file.originalname}" was uploaded using Azure Service`,
-      'AppController',
+      'CatController',
     );
-    Logger.log(`Storage URL: ${storageUrl}`, 'AppController');
+
+    try {
+      const storageUrl = await this.azureStorage.upload(file);
+      return this.addCat(storageUrl);
+    } catch (error) {
+      throw new BadGatewayException(error);
+    }
   }
 
-  @Post('upload2')
+  @Post('upload/interceptor')
   @UseInterceptors(AzureStorageFileInterceptor('file'))
-  async uploadFile(
+  async uploadCat(
     @UploadedFile()
     file: UploadedFileMetadata,
   ) {
@@ -76,27 +56,56 @@ export class CatController {
       `File "${
         file.originalname
       }" was uploaded using Azure Storage Interceptor`,
-      'AppController',
+      'CatController',
     );
-    Logger.log(`Storage URL: ${file.storageUrl}`, 'AppController');
+
+    return this.addCat(file.storageUrl);
   }
 
   // TODO add optional orderBy parameter
+  // TODO support continuation token
   @Get()
   async getAllCats() {
     return await this.catService.findAll();
   }
 
-  @Post(':id')
-  async addCat(
+  @Post(':id/paw')
+  async incrementRating(
     @Body()
-    catData: CatDto,
+    data: { rating: number },
     @Param() params,
   ) {
+    const { rating } = data;
+    if (rating && (rating < 1 || rating > 10)) {
+      throw new BadRequestException('rating must be a number between 1 and 10');
+    }
     try {
-      return await this.catService.incrementRating(params.id, 8);
+      return await this.catService.incrementRating(params.id, rating || 1);
     } catch (error) {
       throw new UnprocessableEntityException(error);
+    }
+  }
+
+  @Delete(':id')
+  async deleteCat(@Param() params) {
+    try {
+      return await this.catService.delete(params.id);
+    } catch (error) {
+      throw new UnprocessableEntityException(error);
+    }
+  }
+
+  private async addCat(storageUrl: string | boolean) {
+    if (storageUrl !== false) {
+      const url = storageUrl as string;
+      try {
+        await this.catService.create(url);
+        Logger.log(`Created new cat with storage URL: ${url}`, 'CatController');
+      } catch (error) {
+        throw new UnprocessableEntityException(error);
+      }
+    } else {
+      throw new BadGatewayException();
     }
   }
 }

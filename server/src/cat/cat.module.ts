@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { AzureStorageModule } from '@nestjs/azure-storage';
 import { AzureTableStorageModule } from '@nestjs/azure-database';
-
 import { CatController } from './cat.controller';
 import { Cat } from './cat.entity';
 import { CatService } from './cat.service';

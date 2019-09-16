@@ -1,8 +1,9 @@
-import { Injectable, UnprocessableEntityException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import {
   Repository,
   AzureTableStorageResponse,
   AzureTableStorageResultList,
+  AzureTableContinuationToken,
   InjectRepository,
 } from '@nestjs/azure-database';
 import { Cat } from './cat.entity';
@@ -14,45 +15,36 @@ export class CatService {
     private readonly catRepository: Repository<Cat>,
   ) {}
 
-  async find(rowKey: string, cat: Cat): Promise<Cat> {
-    return await this.catRepository.find(rowKey, cat);
+  async find(id: string, cat: Cat): Promise<Cat> {
+    return await this.catRepository.find(id, cat);
   }
 
-  async findAll(): Promise<AzureTableStorageResultList<Cat>> {
-    return await this.catRepository.findAll();
+  async findAll(
+    currentToken?: AzureTableContinuationToken,
+  ): Promise<AzureTableStorageResultList<Cat>> {
+    return await this.catRepository.findAll(undefined, currentToken);
   }
 
-  async create(cat: Cat): Promise<Cat> {
-    return await this.catRepository.create(cat);
-  }
-
-  async addCat(url: string): Promise<Cat> {
+  async create(url: string): Promise<Cat> {
     const cat = new Cat({
-      url: url,
+      url,
       rating: 0,
+      createdAt: new Date(),
     });
     return await this.catRepository.create(cat);
   }
 
   async incrementRating(key: string, rating: number): Promise<Cat> {
-    if (rating < 0 || rating > 10) {
-      return Promise.reject('rating must be a number between 0 and 10');
-    } else {
-      try {
-        const cat = await this.catRepository.find(key, new Cat({}));
-        cat.rating = cat.rating + rating;
-        return await this.catRepository.update(key, cat);
-      } catch (error) {
-        throw new UnprocessableEntityException(error);
-      }
-    }
+    const cat = await this.catRepository.find(key, new Cat());
+    cat.rating = cat.rating + rating;
+    return await this.catRepository.update(key, cat);
   }
 
   async update(key: string, cat: Partial<Cat>): Promise<Cat> {
     return await this.catRepository.update(key, cat);
   }
 
-  async delete(rowKey: string, cat: Cat): Promise<AzureTableStorageResponse> {
-    return await this.catRepository.delete(rowKey, cat);
+  async delete(id: string): Promise<AzureTableStorageResponse> {
+    return await this.catRepository.delete(id, new Cat());
   }
 }
