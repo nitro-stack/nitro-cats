@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "start:mocks": "ng serve --proxy-config proxy.mocks.js",
+    "start:local": "ng serve --proxy-config proxy.local.js",
     "build": "ng build",
     "deploy": "ng deploy",
     "test": "ng test",
