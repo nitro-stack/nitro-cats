@@ -23,7 +23,7 @@ If you don't have an account, you can [create one for free using this link](http
 ### Backend
 
 To run the backend, you first have to create an [Azure Storage account](https://docs.microsoft.com/azure/storage/common/storage-quickstart-create-account?WT.mc_id=nitro_cats-github-cxa) and a [SAS key](https://docs.microsoft.com/azure/storage/common/storage-sas-overview?WT.mc_id=nitro_cats-github-cxa).
-You can do that in the Azure portal or using the Azure CLI:
+You can do that in the [Azure portal](https://portal.azure.com?WT.mc_id=nitro_cats-github-cxa) or using the [Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli?view=azure-cli-latest?WT.mc_id=nitro_cats-github-cxa):
 
 ```sh
 # Create the new resource group
