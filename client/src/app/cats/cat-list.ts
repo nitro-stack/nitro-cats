@@ -13,7 +13,9 @@ export class CatList {
   static fromApi(catListDto: CatListDto): CatList {
     return new CatList({
       cats: catListDto.entries.map(catDto => Cat.fromApi(catDto)),
-      continuationToken: catListDto.continuationToken ? JSON.stringify(catListDto.continuationToken) : undefined
+      continuationToken: catListDto.continuationToken
+        ? JSON.stringify(catListDto.continuationToken)
+        : undefined
     });
   }
 }

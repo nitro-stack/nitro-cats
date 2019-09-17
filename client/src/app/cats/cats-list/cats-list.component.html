@@ -21,7 +21,7 @@
   >
     <div class="sizer"></div>
     <ng-masonry-grid-item *ngFor="let cat of cats">
-      <nc-cat-item [cat]="cat"></nc-cat-item>
+      <nc-cat-item [cat]="cat" (deleted)="onDeleteCat($event)"></nc-cat-item>
     </ng-masonry-grid-item>
   </ng-masonry-grid>
   <div *ngIf="loading" fxLayout="column" fxLayoutAlign="center center">

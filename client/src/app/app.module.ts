@@ -9,9 +9,10 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
 import { CatsModule } from './cats/cats.module';
 import { ApiPrefixInterceptor } from './api-prefix.interceptor';
+import { AdminDirective } from './admin.directive';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, AdminDirective],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

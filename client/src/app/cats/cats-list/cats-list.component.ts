@@ -42,6 +42,10 @@ export class CatsListComponent implements OnInit {
     }
   }
 
+  onDeleteCat(catToDelete: Cat) {
+    this.cats = this.cats.filter(cat => cat.id !== catToDelete.id);
+  }
+
   private loadCats(continuationToken?: string) {
     this.loading = true;
     this.catsService

@@ -9,6 +9,9 @@
         <button mat-icon-button (click)="paw()">
           <i class="paw fas fa-paw"></i>
         </button>
+        <button *ngIf="isAdmin" mat-icon-button (click)="delete()">
+          <i class="fas fa-trash"></i>
+        </button>
       </div>
     </section>
   </div>

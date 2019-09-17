@@ -3,6 +3,8 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { MediaObserver, MediaChange } from '@angular/flex-layout';
 import { filter } from 'rxjs/operators';
 
+import { AdminService } from './admin.service';
+
 @Component({
   selector: 'nc-root',
   templateUrl: './app.component.html',
@@ -11,7 +13,10 @@ import { filter } from 'rxjs/operators';
 export class AppComponent {
   @ViewChild('sidenav', { static: false }) sidenav!: MatSidenav;
 
-  constructor(private media: MediaObserver) {}
+  constructor(
+    private media: MediaObserver,
+    private adminService: AdminService
+  ) {}
 
   ngOnInit() {
     // Automatically close side menu on screens > sm breakpoint
@@ -25,5 +30,9 @@ export class AppComponent {
         )
       )
       .subscribe(() => this.sidenav.close());
+  }
+
+  enableAdminMode() {
+    this.adminService.enableAdminMode();
   }
 }
