@@ -3,11 +3,13 @@
 ![app screenshot](nitro-cats.jpg)
 
 This repository contains the full source code of the Nitro Cats Demo app, built using Nitro stack:
+
 - [Angular](https://angular.io) for the frontend
 - [NestJS](https://nestjs.com) for the backend
 - Serverless services, using [Azure Functions](https://azure.microsoft.com/services/functions/?WT.mc_id=nitro_cats-github-cxa) and [Azure Storage](https://azure.microsoft.com/services/storage/?WT.mc_id=nitro_cats-github-cxa)
 
 The following additional tools were also used in this demo:
+
 - [@azure/ng-deploy](https://github.com/Azure/ng-deploy-azure)
 - [@nestjs/azure-func-http](https://github.com/nestjs/azure-func-http)
 - [@nestjs/azure-table-storage](https://github.com/nestjs/azure-storage)
@@ -30,7 +32,7 @@ You can do that in the [Azure portal](https://portal.azure.com?WT.mc_id=nitro_ca
 az group create --name <group_name> --location eastus
 
 # Create the storage account
-az storage account create --name <storage_account_name> --resource-group <group_name> 
+az storage account create --name <storage_account_name> --resource-group <group_name>
 
 # Get the storage account connection string
 az storage account show-connection-string --name  <storage_account_name>
@@ -39,14 +41,16 @@ az storage account show-connection-string --name  <storage_account_name>
 az storage account generate-sas --account-name <storage_account_name> --services btf --resource-types sco --permissions acdlrw --expiry 2020-12-31
 ```
 
-Then create a `.env` file in the `server` folder with these informations:
+Then create a `.env` file in the `server` folder with the following information:
+
 ```
 AZURE_STORAGE_ACCOUNT=<your storage account name>
 AZURE_STORAGE_CONNECTION_STRING=<your storage account connection string>
 AZURE_STORAGE_SAS_KEY=<your SAS key>
 ```
 
-After that, go the server folder then run:
+After that, go the server folder and run:
+
 ```sh
 npm install
 npm start
@@ -54,11 +58,12 @@ npm start
 
 The server should start and listen on `http://localhost:3000`.
 
-You can test it's working properly with the command `curl http://localhost:3000/api`, it should display `API version: 1.0.0`.
+You can test it's working properly with the command `curl http://localhost:3000/api`, which should display `API version: 1.0.0`.
 
 ### Frontend
 
-Once you have the backend running, you can run the frontend with:
+Once you have the backend running, you can run the frontend with these commands:
+
 ```sh
 npm install
 npm run start:local
