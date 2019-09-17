@@ -19,8 +19,8 @@ import {
   UploadedFileMetadata,
   AzureStorageService,
 } from '@nestjs/azure-storage';
-import { CatService } from './cat.service';
 import { AzureTableContinuationToken } from '@nestjs/azure-database';
+import { CatService } from './cat.service';
 
 @Controller('cats')
 export class CatController {
@@ -80,23 +80,23 @@ export class CatController {
   async incrementRating(
     @Body()
     data: { rating: number },
-    @Param() params,
+    @Param('id') id,
   ) {
     const { rating } = data;
     if (rating && (rating < 1 || rating > 10)) {
       throw new BadRequestException('rating must be a number between 1 and 10');
     }
     try {
-      return await this.catService.incrementRating(params.id, rating || 1);
+      return await this.catService.incrementRating(id, rating || 1);
     } catch (error) {
       throw new UnprocessableEntityException(error);
     }
   }
 
   @Delete(':id')
-  async deleteCat(@Param() params) {
+  async deleteCat(@Param('id') id) {
     try {
-      return await this.catService.delete(params.id);
+      return await this.catService.delete(id);
     } catch (error) {
       throw new UnprocessableEntityException(error);
     }
