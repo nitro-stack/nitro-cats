@@ -2,5 +2,5 @@ import { CatDto } from './cat.dto';
 
 export interface CatListDto {
   readonly entries: CatDto[];
-  readonly continuationToken?: string | null;
+  readonly continuationToken?: Object | null;
 }

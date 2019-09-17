@@ -35,7 +35,7 @@ export class CatsListComponent implements OnInit {
   }
 
   loadMore() {
-    if (this.continuationToken !== null) {
+    if (this.continuationToken) {
       this.loadCats(this.continuationToken);
     } else {
       console.info('No more cats to load!');
