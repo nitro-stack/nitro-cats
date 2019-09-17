@@ -70,3 +70,11 @@ npm run start:local
 ```
 
 Then go to `http://localhost:4200` in your browser to add some cats!
+
+## License
+
+nitro-cats is [MIT licensed](https://github.com/nitro-stack/nitro-cats/blob/master/LICENSE).
+
+## Code of Conduct
+
+Contributors to this repo follow this [Code of Conduct](https://github.com/nitro-stack/code-of-conduct).
