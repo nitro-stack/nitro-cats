@@ -26,18 +26,12 @@ export class CatService {
   }
 
   async findAllByRating(
-    descending = true,
     currentToken?: AzureTableContinuationToken,
   ): Promise<AzureTableStorageResultList<Cat>> {
-    const res = await this.catRepository.findAll(undefined, currentToken);
+    const res = await this.findAll(currentToken);
     res.entries.sort(function(a, b) {
-      if (descending) {
-        if (a.rating < b.rating) return 1;
-        if (a.rating > b.rating) return -1;
-      } else {
-        if (a.rating < b.rating) return -1;
-        if (a.rating > b.rating) return 1;
-      }
+      if (a.rating < b.rating) return 1;
+      if (a.rating > b.rating) return -1;
       return 0;
     });
     return res;

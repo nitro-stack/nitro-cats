@@ -11,6 +11,7 @@ import {
   Logger,
   UnprocessableEntityException,
   BadGatewayException,
+  Query,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import {
@@ -19,6 +20,7 @@ import {
   AzureStorageService,
 } from '@nestjs/azure-storage';
 import { CatService } from './cat.service';
+import { AzureTableContinuationToken } from '@nestjs/azure-database';
 
 @Controller('cats')
 export class CatController {
@@ -48,7 +50,7 @@ export class CatController {
 
   @Post('upload/interceptor')
   @UseInterceptors(AzureStorageFileInterceptor('file'))
-  async uploadCat(
+  uploadCat(
     @UploadedFile()
     file: UploadedFileMetadata,
   ) {
@@ -60,11 +62,18 @@ export class CatController {
     return this.addCat(file.storageUrl);
   }
 
-  // TODO add optional orderBy parameter
-  // TODO support continuation token
   @Get()
-  async getAllCats() {
-    return await this.catService.findAllByRating();
+  getAllCats(
+    @Query('orderBy')
+    orderBy: string,
+    @Query('continuationToken')
+    continuationToken: string
+  ) {
+    const azureContinuationToken: AzureTableContinuationToken = continuationToken ? JSON.parse(continuationToken) : undefined;
+    if (orderBy === 'rating') {
+      return this.catService.findAllByRating(azureContinuationToken);
+    }
+    return this.catService.findAll(azureContinuationToken);
   }
 
   @Post(':id/paw')
@@ -97,8 +106,8 @@ export class CatController {
     if (storageUrl !== false) {
       const url = storageUrl as string;
       try {
-        await this.catService.create(url);
         Logger.log(`Created new cat with storage URL: ${url}`, 'CatController');
+        return await this.catService.create(url);
       } catch (error) {
         throw new UnprocessableEntityException(error);
       }
