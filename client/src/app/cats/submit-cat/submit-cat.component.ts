@@ -43,7 +43,6 @@ export class SubmitCatComponent implements OnInit {
     this.uploader.onErrorItem = () => {
       this.uploadError = true;
     };
-    this.uploader.onSuccessItem = () => console.log('success');
   }
 
   ngOnInit() {

@@ -41,8 +41,9 @@ export class CatsService {
     );
   }
 
-  pawCat(id: string): Observable<Cat[] | null> {
-    return this.httpClient.post(`/cats/${id}/paw`, { rating: 1 }).pipe(
+  pawCat(id: string, count = 1): Observable<Cat[] | null> {
+    const rating = Math.max(Math.min(count, 10), 1);
+    return this.httpClient.post(`/cats/${id}/paw`, { rating }).pipe(
       catchError(error => {
         console.error(`Error, cannot paw cat with id: ${id}`, error);
         return of(null);
