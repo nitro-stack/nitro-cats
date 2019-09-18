@@ -67,9 +67,11 @@ export class CatController {
     @Query('orderBy')
     orderBy: string,
     @Query('continuationToken')
-    continuationToken: string
+    continuationToken: string,
   ) {
-    const azureContinuationToken: AzureTableContinuationToken = continuationToken ? JSON.parse(continuationToken) : undefined;
+    const azureContinuationToken: AzureTableContinuationToken = continuationToken
+      ? JSON.parse(continuationToken)
+      : undefined;
     if (orderBy === 'rating') {
       return this.catService.findAllByRating(azureContinuationToken);
     }
@@ -103,7 +105,7 @@ export class CatController {
   }
 
   private async addCat(storageUrl: string | boolean) {
-    if (storageUrl !== false) {
+    if (storageUrl !== null) {
       const url = storageUrl as string;
       try {
         Logger.log(`Created new cat with storage URL: ${url}`, 'CatController');
