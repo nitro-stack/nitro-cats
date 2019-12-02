@@ -12,7 +12,7 @@ The following additional tools were also used in this demo:
 
 - [@azure/ng-deploy](https://github.com/Azure/ng-deploy-azure)
 - [@nestjs/azure-func-http](https://github.com/nestjs/azure-func-http)
-- [@nestjs/azure-table-storage](https://github.com/nestjs/azure-storage)
+- [@nestjs/azure-database](https://github.com/nestjs/azure-database)
 - [@nestjs/azure-storage](https://github.com/nestjs/azure-storage)
 
 ## Running the demo
